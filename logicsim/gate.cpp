@@ -6,7 +6,7 @@
 #include "wire.h"
 
 Gate::Gate(int num_inputs, Wire* output) 
-	: m_output(output), m_inputs(num_inputs), m_delay(0), m_current_state('X')
+	:m_output(output), m_inputs(num_inputs), m_delay(0), m_current_state('X')
 {
     
 }
@@ -88,3 +88,35 @@ Event* Or2Gate::update(uint64_t current_time)
 	}
   return e;
 }
+
+// Not Gate implementation
+
+NotGate::NotGate(Wire* in, Wire* out):Gate(1,out)
+{
+  wireInput(0, in);
+}
+
+Event* NotGate::update(uint64_t current_time)
+{
+  //Not truth table
+  char in = m_inputs[0]->getState();
+  char newState = 'X';
+
+  if (in == '0')
+  {
+    newState = '1';
+  }
+  else if(in == '1')
+  {
+    newState = '0';
+  }
+
+  if(newState != m_current_state)
+  {
+    m_current_state = newState;
+    uint64_t temp = current_time + m_delay;
+    return new Event{temp, m_output, newState};
+  }
+  return nullptr;
+}
+

@@ -35,4 +35,14 @@ class Or2Gate : public Gate
       Event* update(uint64_t);
 };
 
+// Single input NOT Gate
+
+class NotGate: public Gate // Inherits from Gate
+{
+  public:
+  // Constructor
+  NotGate(Wire* in, Wire* out);
+
+  Event* update(uint64_t current_time) override;
+};
 #endif

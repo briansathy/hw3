@@ -61,6 +61,10 @@ void dealloc(Node* head)
         head = temp;
     }
 }
+bool isOdd(int x)
+{
+    return (x % 2 != 0);
+}
 
 // -----------------------------------------------
 //   Add any helper functions or
@@ -87,6 +91,13 @@ int main(int argc, char* argv[])
 
     // Test out your linked list code
 
+    Node* small;
+    Node* big;
+    llpivot(head, small, big, 10);
+    print(small);
+    print(big);
+    small = llfilter(small, isOdd);
+    print(small);
 
 
     
